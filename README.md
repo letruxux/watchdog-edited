@@ -37,7 +37,8 @@ First, download this project using the Code > Download ZIP and extract the ZIP.
 This code is written in python, so you need it to run the code. I recommend installing [Python 3.11 from the Microsoft Store](https://www.microsoft.com/store/productId/9NRWMJP3717K), because that's what i used to write it.
 
 After installing python, you have to **install the packages** using the requirements.txt file.
-To do that, open command prompt and go in the extracted folder from before using the `cd` command. Example: `cd C:\Users\balls\Downloads\watchdog\`
+To do that, open command prompt and go in the extracted folder from before using the `cd` command. 
+Example: `cd C:\Users\balls\Downloads\watchdog\`
 
 After changing the directory, do the command `pip3 install -r requirements.txt` to install the needed packages.
 
