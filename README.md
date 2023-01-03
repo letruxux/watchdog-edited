@@ -11,6 +11,8 @@ By using this tool, you agree that you hold responsibility and accountability of
 
 </h1>
 
+Also the program code is very bad. I just wanted it to work so sorry if it's kind of hard to work with.
+
 # Installation
 Before installing the script on a machine, edit the first two lines of code. If you don't know how to get the needed info, check out the guides below.:
 ```
