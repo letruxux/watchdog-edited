@@ -37,7 +37,7 @@ if not home + foldername:
     os.mkdir(home + foldername)
     directory = str(home + foldername)
     os.chdir(directory)
-    print("No WDog folder, creating one...")
+    print("No folder, creating one...")
 elif home + foldername:
     directory = str(home + foldername)
     os.chdir(directory)
@@ -55,40 +55,26 @@ def checkIfProcessRunning(processName):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
     return False
-def killRoblox():
-    if(robloxRunning()):
-        os.system("taskkill /f /im RobloxPlayerBeta.exe")
-def robloxRunning():
-    return checkIfProcessRunning("RobloxPlayerBeta.exe")
-def killSteam():
-    if(steamRunning()):
-        os.system("taskkill /f /im steam.exe")
-def steamRunning():
-    return checkIfProcessRunning("steam.exe")
+
 def getApps():
 
-    global robloxStatus
     global steamStatus
 
-    if(robloxRunning()):
-        robloxStatus = "roblox :green_square:, "
-    elif(not robloxRunning()):
-        robloxStatus = "roblox :red_square:, "
-
-    if(steamRunning()):
+    if(checkIfProcessRunning("steam.exe")):
         steamStatus = "steam :green_square:, "
-    elif(not robloxRunning()):
+    elif(not checkIfProcessRunning("steam.exe")):
         steamStatus = "steam :red_square:, "
-    return 
-def shutdownPc():
-    os.system('shutdown -s -t 0')
-    
+    return
+
 #dm on startup
 @bot.event
 async def on_ready():
     print(f'Currently logged in as {bot.user}.')
     user = await bot.fetch_user(ownerid)
-    await user.send('PC/Script booted up. Check out commands typing "help".')
+    await user.send('PC/Script booted up.')
+
+# personalizing
+infos=steamStatus
 
 #commands
 @bot.event
@@ -96,25 +82,21 @@ async def on_message(message):
     if not message.guild and message.author == await bot.fetch_user(ownerid):
         if message.content == "shutdown":
             await message.channel.send("bye boss :saluting_face:", reference=message)
-            shutdownPc()
+            os.system('shutdown -s -t 0')
 
-        if message.content == "killroblox":
-            if(robloxRunning()):
-                killRoblox()
+        if message.content == "killsteam":
+            if(checkIfProcessRunning("steam.exe")):
+                os.system("taskkill /f /im steam.exe")
                 await message.channel.send("done lol", reference=message)
             else:
-                await message.channel.send("roblox not running dum", reference=message)
+                await message.channel.send("steam not running dum", reference=message)
         
-        if message.content == prefix + "info" and not message.author.bot:
+        if message.content == "info" and not message.author.bot:
             msg = await message.channel.send("getting info please wait...", reference=message)
             getApps()
-            infos=robloxStatus + steamStatus
             await msg.edit(content=infos)
 
-        if message.content == prefix + "help" and not message.author.bot:
-            await message.channel.send(cmdlist, reference=message)
-
-        if message.content == prefix + "ss" and not message.author.bot:
+        if message.content == "ss" and not message.author.bot:
             filename = "pic2.png"
             msg = await message.channel.send("taking screenshot please wait...", reference=message)
             ss = pyautogui.screenshot()
@@ -123,7 +105,7 @@ async def on_message(message):
             await msg.edit(content="voila")
             os.remove(filename)
 
-        if message.content == prefix + "pic" and not message.author.bot:
+        if message.content == "pic" and not message.author.bot:
             filename = "pic1.png"
             msg = await message.channel.send("lemme take a pic rq...", reference=message)
             cap = cv2.VideoCapture(0)
@@ -131,10 +113,10 @@ async def on_message(message):
             cv2.imwrite(filename,frame)
             cap.release()
             await message.channel.send(file=discord.File(filename))
-            await msg.edit(content="noway hes bad")
+            await msg.edit(content="noway i did it")
             os.remove(filename)
 
-        if message.content == prefix + "wallpaper" and not message.author.bot:
+        if message.content == "wallpaper" and not message.author.bot:
             if message.attachments:
                 msg = await message.channel.send("doing it gimme a sec...", reference=message)
                 path = os.path.join(os.getenv('TEMP') + "\\temp.jpg")
@@ -144,22 +126,22 @@ async def on_message(message):
             elif not message.attachments:
                 await message.channel.send("bro forgor the photo", reference=message)
                 
-        if message.content.startswith(prefix + "write") and not message.author.bot:
-            msg = await message.channel.send("currently writing " + message.content[7:], reference=message)
+        if message.content.startswith("write") and not message.author.bot:
+            msg = await message.channel.send("currently writing " + message.content[6:], reference=message)
             if message.content[7:] == "enter":
                 pyautogui.press("enter")
             else:
-                pyautogui.typewrite(message.content[7:])
+                pyautogui.typewrite(message.content[6:])
             await msg.edit(content="did it")
 
-        if message.content.startswith(prefix + "speak") and not message.author.bot: 
-            msg = await message.channel.send("currently speaking " + message.content[7:], reference=message)  
+        if message.content.startswith("speak") and not message.author.bot: 
+            msg = await message.channel.send("currently speaking " + message.content[6:], reference=message)  
             speak = wincl.Dispatch("SAPI.SpVoice")
-            speak.Speak(message.content[7:])
+            speak.Speak(message.content[6:])
             comtypes.CoUninitialize()
             await msg.edit(content="ok i spoke")
 
-        if message.content.startswith(prefix + "message") and not message.author.bot: 
+        if message.content.startswith("message") and not message.author.bot: 
             msg = await message.channel.send("currently sending message " + message.content[7:], reference=message)  
             # i literally copypasted this from the internet but works so it's ok
             MB_YESNO = 0x04
@@ -181,3 +163,4 @@ async def on_message(message):
             await msg.edit(content="message sent")
 
 bot.run(token)
+
