@@ -47,3 +47,10 @@ After changing the directory, do the command `pip3 install -r requirements.txt` 
 ## Run on startup
 First, press Win + R and type `shell:startup` to open the startup folder.
 Next, drag the edited python file.
+
+# Updates board
+
+ToDo: Add PW stealer support for more browsers (now only chrome/edge)
+      PW stealer better browser detection
+      
+Done: PW stealer
