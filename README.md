@@ -1,5 +1,11 @@
 <h1 align="center">🪲watchdog edited</h1>
 <p align="center">inspired by https://www.youtube.com/watch?v=BOkSupPtWCQ</p>
+<div align="center">
+
+  <img align="center" alt="GitHub top language" src="https://img.shields.io/github/languages/top/letruxux/watchdog-edited">
+  <img align="center" alt="GitHub repo file count" src="https://img.shields.io/github/directory-file-count/letruxux/watchdog-edited?color=red">
+
+</div>
 
 # Disclaimer
 </h1 align="center">
